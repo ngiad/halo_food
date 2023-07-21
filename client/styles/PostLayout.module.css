@@ -1,0 +1,18 @@
+.navPost{
+    border-bottom: 2px solid #a59d9d;
+    padding: 4px 0;
+}
+
+.navPost button {
+    border: none;
+    background: #fff;
+    font-size: 24px;
+    transform: scaleX(2);
+    opacity: 0.5;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.navPost button:hover{
+    opacity: 1;
+}

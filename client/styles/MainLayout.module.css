@@ -1,0 +1,105 @@
+.MainLayout header{
+    display: flex;
+    padding: 8px 12px;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    background: #fff;
+    z-index: 999;
+}
+
+
+.MainLayout header ul{
+    position: absolute;
+    background: #fff;
+}
+
+
+.MainLayout header nav button,
+.MainLayout header div{
+    background-color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    padding: 4px;
+    border-radius: 4px;
+    line-height: 100%;
+    transition: all 0.2s ease-in-out;
+}
+
+
+.MainLayout header nav ul{
+    padding: 12px;
+    list-style: none;
+    border-radius: 4px;
+    background-color: #f4f4f4;
+}
+
+.MainLayout header nav ul li{
+    padding: 4px;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    height: 40px;
+}
+
+.MainLayout header nav ul li a{
+    font-weight: 500;
+    width: 150px;
+    display: inline-block;
+}
+
+.MainLayout header nav ul li:hover{ 
+    border-bottom: 2px solid #7d7878;
+}
+
+.MainLayout header div img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.MainLayout header div div a{
+    border-radius: 4px;
+}
+
+.MainLayout header div div a:hover,
+.MainLayout header nav button:hover{
+    background: #cac0c0;
+    color: #fff;
+}
+
+
+
+.MainLayout main{
+    max-width: 1600px;
+    width: 100%;
+    margin:40px auto;
+    padding: 20px;
+}
+
+
+.btnUptoTop{
+    position: fixed;
+    z-index: 999;
+    bottom: 80px;
+    right: 20px;
+
+    border: none;
+    background: #fff;
+    font-size: 40px;
+    cursor: pointer;
+    opacity: 0.1;
+    transition: all .2s ease;
+}
+
+.btnUptoTop:hover{
+    opacity: 1;
+}
+
+
+@media screen and (max-width: 720px) {
+    .MainLayout h1{
+        font-size: 20px;
+    }
+}

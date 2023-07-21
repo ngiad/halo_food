@@ -1,0 +1,17 @@
+.contentcmt{
+    display: flex;
+    align-items: flex-start;
+    gap: 4px;
+    margin:0 0 4px;
+    background-color: #fff;
+    border-radius: 4px;
+    padding: 4px;
+}
+
+.contentcmt a{
+    font-weight: 600;
+}
+
+.contentcmt div p{
+    padding:4px 0 0;
+}

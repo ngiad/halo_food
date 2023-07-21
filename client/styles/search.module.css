@@ -1,0 +1,92 @@
+.search{
+    padding:12px 0;
+    /* border-bottom: 2px solid #a59d9d; */
+    display: flex;
+    gap: 24px;
+    align-items: center;
+}
+
+.search form{
+    flex: 2;
+    display: flex;
+    border-bottom: 1px solid #333 ;
+    gap: 4px;
+}
+
+.search form input{
+    max-width: 280px;
+    width: 100%;
+    padding: 6px;
+    border: none;
+}
+
+.search form button{
+    height: 30px;
+    padding: 4px;
+    border-radius: 4px ;
+    font-size: 20px;
+    line-height: 30px;
+    cursor: pointer;
+    border: none;
+}
+
+.tag{
+    box-shadow: rgba(50, 50, 52, 0.2) 0px 7px 29px 0px;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    flex: 8;
+    overflow-x: scroll;
+    border-radius: 4px;
+}
+
+.btnTag{
+    padding: 4px 8px;
+    margin: 0 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100px;
+}
+
+.search form button:hover,
+.btnTag:hover{
+    background: #cac0c0;
+    color: #fff;
+    border: none;
+}
+
+
+.tag::-webkit-scrollbar-track
+{
+	/* -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); */
+	/* background-color: #F5F5F5; */
+    border-radius: 4px;
+}
+
+.tag::-webkit-scrollbar
+{
+	height: 8px;
+}
+
+.tag::-webkit-scrollbar-thumb
+{
+	background-color: #d5cbcb;
+    border-radius: 4px ;
+}
+
+@media screen and (max-width: 720px) {
+    .search{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .tag{
+        width: 100%;
+    } 
+
+    .search form{
+        width: 100%;
+        justify-content: space-between;
+    }
+}
+

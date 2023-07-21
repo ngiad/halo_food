@@ -1,0 +1,9 @@
+.navigate{
+    margin: 8px 0;
+    text-transform: uppercase;
+    color: #8d8888;
+    font-size: 24px;
+    border-bottom: 2px solid #a59d9d;
+    text-align: center;
+    padding: 8px 0;
+}
