@@ -2,7 +2,7 @@ import { Router } from "express";
 
 const profileRoter = Router()
 
-profileRoter.use()
+// profileRoter.use()
 
 
 
