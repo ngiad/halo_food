@@ -65,6 +65,7 @@ const Search = () => {
   const routerQuery = (query: { search?: String; tag?: any[] }) => {
     if (!query.search) delete query.search;
     if (!query.tag?.length) delete query.tag;
+    console.log(" log:::",{...router.query,...query})
     router.push({ href: router.pathname, query });
   };
 
@@ -93,6 +94,12 @@ const Search = () => {
     }
   };
 
+  useEffect(() => {
+    setListTag([])
+    setSearch("")
+  },[router.pathname])
+
+  
   return (
     <div className={style.search}>
       <form onSubmit={handleSubmit}>
