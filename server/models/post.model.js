@@ -11,7 +11,12 @@ const PostSchema = Schema({
         type : String,
         default : "anonymous"
     },
-    tag :  [String]
+    tag :  [String],
+    status : {type : String, default : "new"},
+    view : {
+        type : Number,
+        default : 0
+    }
 },{
     timestamps :  true
 })

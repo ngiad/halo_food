@@ -4,7 +4,14 @@ import style from "../styles/loading.module.css"
 
 const Loading = () => {
   return (
-    <div className={style.loading}></div>
+    <div className={style["wrapper"]}>
+      <div className={style["circle"]}></div>
+      <div className={style["circle"]}></div>
+      <div className={style["circle"]}></div>
+      <div className={style["shadow"]}></div>
+      <div className={style["shadow"]}></div>
+      <div className={style["shadow"]}></div>
+    </div>
   )
 }
 

@@ -97,9 +97,29 @@
     opacity: 1;
 }
 
+.auth{
+    border-bottom: 2px solid #a59d9d;
+    font-size: 16px;
+    margin: 0 12px;
+    padding: 12px 8px;
+    transition: all 0.1s ease-in-out;
+    line-height: 47px; 
+}
+
 
 @media screen and (max-width: 720px) {
     .MainLayout h1{
         font-size: 20px;
+    }
+}
+
+@media screen and (max-width: 450px){
+    .MainLayout h1{
+        font-size: 16px;
+    }
+    .auth{
+        margin: 0 4px;
+        padding: 6px 4px;
+        font-size: 13px;
     }
 }

@@ -1,15 +1,16 @@
-import React, { memo, useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useRef, useState, useContext } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import style from "../styles/search.module.css";
 import { useRouter } from "next/router";
+import { SearchContext } from "./SearchContext";
 
 const Search = () => {
   const router = useRouter();
   const TagELE = useRef<HTMLDivElement>();
-
   const [positionmouse, setPositionMouse] = useState<Number>(0);
   const [search, setSearch] = useState<String>("");
   const [listTag, setListTag] = useState<Array<any>>([]);
+  const { setCountsearch } = useContext(SearchContext)
 
   let listTap = [
     "test",
@@ -65,8 +66,10 @@ const Search = () => {
   const routerQuery = (query: { search?: String; tag?: any[] }) => {
     if (!query.search) delete query.search;
     if (!query.tag?.length) delete query.tag;
-    console.log(" log:::",{...router.query,...query})
-    router.push({ href: router.pathname, query });
+    router.push({ pathname: "/search", query })
+    setCountsearch(prev =>{
+      return prev+=1
+    })
   };
 
   const handleSubmit = (e: Event): void => {
@@ -97,9 +100,9 @@ const Search = () => {
   useEffect(() => {
     setListTag([])
     setSearch("")
-  },[router.pathname])
+  }, [router.pathname])
 
-  
+
   return (
     <div className={style.search}>
       <form onSubmit={handleSubmit}>

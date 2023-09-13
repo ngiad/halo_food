@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode, useState, useEffect } from 'react';
 import { useSelector } from "react-redux";
 import { BiMenu, BiX } from 'react-icons/bi';
 import style from "../../styles/MainLayout.module.css"
@@ -23,12 +23,15 @@ const MainLayout = ({ children }: MainLayoutProps) => {
         setMenuCheck(MenuCheck ? false : true)
     }
 
-    const windonHandleClick = () => {
+    const windonHandleClick = (): void => {
         if (MenuCheck) setMenuCheck(false)
     }
 
-    console.log(user.token);
-
+    //console.log(user.token);
+    // useEffect(() => {
+    //   console.log("location :: ",router);
+    // }, [])
+    
 
 
     return (
@@ -48,24 +51,10 @@ const MainLayout = ({ children }: MainLayoutProps) => {
                         user.token ? <Link href={'/profile'}>
                             <img src="https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/358061547_1432729000846049_1211357899180701296_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=KK5rF8vBm5sAX-YM3nU&_nc_oc=AQlrvv1TduyGg7GI7cNIdGgy8mu8mU3gl14zGfTcvCz1leeezCoqqBnnNMQtQlQb_2c&_nc_ht=scontent.fhan5-2.fna&oh=00_AfAy6PYwM_IWg0ujWlSkV3D42tRzHkkDElSScePqDgGgyQ&oe=64B02499" alt="avatar" />
                         </Link> : <div>
-                            <Link style={{
-                                borderBottom: "2px solid #a59d9d",
-                                fontSize: "16px",
-                                margin: "0 12px",
-                                padding: "12px 8px",
-                                transition: "all .1s ease-in-out",
-                                lineHeight: "47px"
-                            }} href={"/login"}>
+                            <Link className={style['auth']} href={"/login"}>
                                 Đăng nhập
                             </Link>
-                            <Link style={{
-                                borderBottom: "2px solid #a59d9d",
-                                fontSize: "16px",
-                                margin: "0 12px",
-                                padding: "12px 8px",
-                                transition: "all .1s ease-in-out",
-                                lineHeight: "47px"
-                            }} href={"/register"}>Đăng kí</Link>
+                            <Link className={style['auth']}href={"/register"}>Đăng kí</Link>
                         </div>
                     }
                 </div>

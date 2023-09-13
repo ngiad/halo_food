@@ -1,19 +1,23 @@
-import { useRouter } from 'next/router';
-import React,{ useEffect } from 'react'
-import Container from '../src/Container';
+import { useEffect } from "react";
+import Container from "../src/Container";
+import _debounce from 'lodash/debounce';
+import useFetch from "../src/useFetch";
 
 const Hot = () => {
-  const router = useRouter()
+  const  {handleScroll,render,handleGetDate,total,fetch} = useFetch()
+
 
   useEffect(() => {
-    console.log(router.query);
-    console.log(router.asPath);
-  },[router])
-  
+    let hrel = `post?page=${total}&status=hot`
+    handleGetDate(hrel)
+  }, [total])
+
+
+
   return (
     <div>
-        <Container />
-    </div>
+       <Container data={render} handleScroll={handleScroll} isLoading={fetch.isLoading} />
+    </div> 
   )
 }
 

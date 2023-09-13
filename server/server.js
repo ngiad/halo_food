@@ -5,10 +5,10 @@ import env from "dotenv";
 import compression from "compression";
 import { errorHandler } from "./middlewares/filter.error.js";
 import connentDB from "./utils/init.mongodb.js";
-import adminRouter from "./routers/admin.router.js";
 import profileRoter from "./routers/profile.router.js";
 import authRouter from "./routers/authen.router.js";
 import postRouter from "./routers/post.router.js";
+import commentRouter from "./routers/comment.router.js";
 
 const app = express();
 env.config();
@@ -29,11 +29,10 @@ app.use(
 app.use(cors());
 app.use(bodyParser.json());
 
-app.use("/api/admin",adminRouter)
-app.use("/api/profile",profileRoter)
-app.use("/api/auth",authRouter)
-app.use("/api/post",postRouter)
-
+app.use("/api/profile", profileRoter);
+app.use("/api/comment",commentRouter)
+app.use("/api/auth", authRouter);
+app.use("/api/post", postRouter);
 
 app.use(errorHandler);
 

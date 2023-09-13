@@ -10,7 +10,7 @@ const commentModel  = Schema({
         type : String,
         required :  true
     },
-    iduser : {
+    idUser : {
         type : String,
         required :  true
     }

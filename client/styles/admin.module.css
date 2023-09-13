@@ -1,0 +1,44 @@
+.admin {}
+
+
+.admin .top{
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 12px 0;
+    padding: 12px 0;
+    border-bottom: 2px solid #a59d9d;
+}
+
+.admin .top > a{
+    padding: 8px 12px;
+    border: 2px solid #f4f4f4;
+    transition: all 0.2s ease;
+    font-size: 24px;
+}
+
+.admin .top > a:nth-child(1){
+    background: green;
+    color: #fff;
+}
+
+.admin .top > a:nth-child(2){
+    background: blue;
+    color: #fff;
+}
+
+
+.admin .top > a:nth-child(3){
+    background: red;
+    color: #fff;
+}
+
+
+
+.admin .top > a:hover{
+    border: 2px solid #333;
+    border-radius: 4px;
+}
+
+.admin .posts{}
+
