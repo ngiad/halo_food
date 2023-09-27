@@ -3,9 +3,8 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import style from "../styles/post.module.css"
 import PostLayout from '../layout/PostLayout';
-import Cmt from '../src/Cmt';
 import axios from '../utils/axios';
-
+import styleTag from "../styles/search.module.css"
 
 const postPage: NextPage = () => {
   const router = useRouter();
@@ -29,16 +28,20 @@ const postPage: NextPage = () => {
     }
   }, [id])
 
+  const handleClicktag = (tag : string) => {
+    router.push({pathname : "/search",query : tag})
+  }
+
   return (
     <div className={style.postPage}>
       <div className={style.content}>
         <div className={style.top}>
           <h1>{data?.namePost}</h1>
           <span>{data?.athor}</span>
-          <ul>
+          <ul style={{ listStyle: "none", display: "flex", gap : "6px" }}>
             {
               data?.tag.map((item, index) => {
-                return <li key={index}>{item}</li>
+                return <li onClick={() => handleClicktag(item)} style={{ display: "flex", justifyContent: "center",background : "#ccc", margin : "0" }} className={styleTag.btnTag} key={index}>#{item}</li>
               })
             }
           </ul>
@@ -48,26 +51,11 @@ const postPage: NextPage = () => {
             data?.content?.map((item, index) => {
               return <div key={index}>
                 <p >{item.p}</p>
-                <img  src={item.image} alt="anh nau an" />
+                <img src={item.image} alt="anh nau an" />
               </div>
             })
           }
         </div>
-
-        <div className={style.youthink}>
-          <form>
-            <input type="text" placeholder='Viết suy nghĩ của bạn ...' />
-            <button>Gửi</button>
-          </form>
-        </div>
-      </div>
-      <div className={style.cmt}>
-        <h2>Bình luận</h2>
-        <Cmt />
-        <Cmt />
-        <Cmt />
-        <Cmt />
-        <Cmt />
       </div>
     </div>
   )

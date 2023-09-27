@@ -47,9 +47,7 @@ export default class PostService {
     ])
 
     let average = viewAverage[0].average
-
     if(post.view > average) isHot = true
-
     if(!isNew) post.status = "old"
     if(isHot) post.status = "hot"
 
@@ -72,7 +70,6 @@ export default class PostService {
 
   removePost = async (id) => {
     try {
-      console.log("id",id);
       if (!id) throw new Error("id is null!");
       await this.model.findOneAndRemove({ _id: id });
       return { complete: true };

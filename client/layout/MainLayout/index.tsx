@@ -27,12 +27,6 @@ const MainLayout = ({ children }: MainLayoutProps) => {
         if (MenuCheck) setMenuCheck(false)
     }
 
-    //console.log(user.token);
-    // useEffect(() => {
-    //   console.log("location :: ",router);
-    // }, [])
-    
-
 
     return (
         <div onClick={windonHandleClick} className={style.MainLayout}>

@@ -7,6 +7,7 @@ import style from "../../styles/admin.module.css"
 import { useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import Container from '../../src/Container';
+import { toast } from 'react-toastify';
 
 const Admin = () => {
   const router = useRouter()
@@ -77,9 +78,10 @@ const Admin = () => {
         setFetch(prev =>{
           return {...prev,["data"] : prev.data.filter(item => item["_id"] !== id)}
         })
+        toast.success("remove done!")
       }
     } catch (error) {
-      console.log(error);
+      toast.error(error.message)
     }
   }
 

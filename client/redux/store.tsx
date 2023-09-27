@@ -1,12 +1,10 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers } from 'redux';
 import user from "./state"
 
 export type userTP = {
     user : any
 } 
 
-export default configureStore({
-    reducer : {
-        user
-    }
+export default combineReducers({
+    user    
 })

@@ -15,7 +15,7 @@ const Login = () => {
     password : ""
   })
 
-  const handChange =(e) => {
+  const handChange =(e : any) => {
     setForm({...form,[e.target.id] : e.target.value})
   }
 
@@ -25,14 +25,11 @@ const Login = () => {
     try {
       const res = await axios.post("auth/login",{
           ...form
-      },{
-        headers : {
-          "isadmin" : "true"
-        }
       })
 
       if(res.data){        
         dispatch(update(res.data))
+        localStorage.setItem("user",JSON.stringify(res.data))
         router.push("/profile")
       }
 
