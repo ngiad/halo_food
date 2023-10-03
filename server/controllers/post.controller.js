@@ -5,6 +5,15 @@ export default class PostController{
         this.sevicer = new PostService()
     }
 
+    tag = async(req,res,next) => {
+        try {
+            res.status(200).json(await this.sevicer.tag())
+        } catch (error) {
+            res.status(400)
+            next(error)
+        }
+    }
+
 
     createPost = async(req,res,next) => {
         try {

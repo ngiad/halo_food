@@ -3,6 +3,8 @@ import { AiOutlineSearch } from "react-icons/ai";
 import style from "../styles/search.module.css";
 import { useRouter } from "next/router";
 import { SearchContext } from "./SearchContext";
+import axios from "../utils/axios";
+import { toast } from "react-toastify";
 
 const Search = () => {
   const router = useRouter();
@@ -12,44 +14,16 @@ const Search = () => {
   const [listTag, setListTag] = useState<Array<any>>([]);
   const { setCountsearch } = useContext(SearchContext)
 
-  let listTap = [
-    "test",
-    "hello",
-    "thit lon",
-    "test",
-    "hello",
-    "thit lon",
-    "test",
-    "hello",
-    "thit lon",
-    "test",
-    "hello",
-    "thit lon",
-    "test",
-    "hello",
-    "thit lon",
-    "test",
-    "hello",
-    "thit lon",
-    "test",
-    "hello",
-    "thit lon",
-    "test",
-    "hello",
-    "thit lon",
-    "test",
-    "hello",
-    "thit lon",
-    "test",
-    "hello",
-    "thit lon",
-    "test",
-    "hello",
-    "thit lon",
-    "test",
-    "hello",
-    "thit lon",
-  ];
+  let [listTap,setListTap] = useState([])
+
+  const getTag  = async(): Promise<void> => {
+    try {
+      const res = await axios.get("post/tag")
+      setListTap(res.data)
+    } catch (error) {
+      toast.warning("disconnent tag!")
+    }
+  }
 
   const handlEmousedown = (event: Event): void => {
     event.stopPropagation();
@@ -102,7 +76,9 @@ const Search = () => {
     setSearch("")
   }, [router.pathname])
 
-
+  useEffect(() =>{
+    getTag()
+  },[])
   return (
     <div className={style.search}>
       <form onSubmit={handleSubmit}>

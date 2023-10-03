@@ -75,7 +75,6 @@ export default class AuthService {
 
   login = async ({ email, password }) => {
     try {
-      console.log(email,password);
       if (!email || !password)
         throw new Error("Please fill in all required fields");
       if (password.length < 6)

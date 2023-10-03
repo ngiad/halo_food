@@ -42,8 +42,8 @@ const MainLayout = ({ children }: MainLayoutProps) => {
                 <h1>1001 Công thức</h1>
                 <div>
                     {
-                        user.token ? <Link href={'/profile'}>
-                            <img src="https://scontent.fhan5-2.fna.fbcdn.net/v/t39.30808-6/358061547_1432729000846049_1211357899180701296_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=KK5rF8vBm5sAX-YM3nU&_nc_oc=AQlrvv1TduyGg7GI7cNIdGgy8mu8mU3gl14zGfTcvCz1leeezCoqqBnnNMQtQlQb_2c&_nc_ht=scontent.fhan5-2.fna&oh=00_AfAy6PYwM_IWg0ujWlSkV3D42tRzHkkDElSScePqDgGgyQ&oe=64B02499" alt="avatar" />
+                        user.token ? <Link href={'/profile?page=0'}>
+                            <img src={user.photo} alt="avatar" />
                         </Link> : <div>
                             <Link className={style['auth']} href={"/login"}>
                                 Đăng nhập

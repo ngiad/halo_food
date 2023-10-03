@@ -60,8 +60,8 @@ const Container = ({ data, handleScroll,isLoading, ...props }: any) => {
 
   return (
     <div>
-      <div className={style["band"]}>
-        {render}
+      <div className={style["band"]} style={{gap : `${props.admin ? "30px" : ""}`}}>
+        {data?.length ? render : "Không có bài viết"}
       </div>
       {isLoading && <Loading />}
     </div>

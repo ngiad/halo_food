@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState,useContext } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, useContext } from "react";
 import Container from "../src/Container";
 import axios from "../utils/axios";
 import _debounce from 'lodash/debounce';
@@ -13,17 +13,17 @@ const search = () => {
     isLoading: false,
     lengthPage: 0
   })
-  const {Countsearch} = useContext(SearchContext)
+  const { Countsearch } = useContext(SearchContext)
 
   const getData = async () => {
-    let hrel : String = `post?page=${totalPage.current}&${window.location.href.split("?")[1]}`
+    let hrel: String = `post?page=${totalPage.current}&${window.location.href.split("?")[1]}`
     setFetch(prev => prev = { ...prev, isLoading: true })
     try {
       const res = await axios.get(hrel)
       const data = await res.data
 
       setFetch(prev => {
-        let newState = { ...prev, data: [ ...data[0]], lengthPage: data[1], isLoading: false }
+        let newState = { ...prev, data: [...data[0]], lengthPage: data[1], isLoading: false }
         return newState
       })
     } catch (error) {
@@ -64,7 +64,7 @@ const search = () => {
   const handleScroll = useCallback(function () {
     if (!fetch.isLoading && totalPage.current <= ((fetch.lengthPage / 12) + 1)) {
       totalPage.current++
-      let hrel : String = `post?page=${totalPage.current}&${window.location.href.split("?")[1]}`
+      let hrel: String = `post?page=${totalPage.current}&${window.location.href.split("?")[1]}`
       handleGetData(hrel)
     }
   }, [])

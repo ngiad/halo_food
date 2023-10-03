@@ -4,15 +4,16 @@ import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import axios from '../../../utils/axios';
+import { error } from 'console';
 
-const ContentItem = React.memo(({ item, updateContent, removeContent }) => {
+const ContentItem = React.memo(({i, item, updateContent, removeContent }) => {
 
   const handLeChange = (e) => {
-    updateContent(item.id, { ...item, [e.target.name]: e.target.value })
+    updateContent(i, { ...item, [e.target.name]: e.target.value })
   }
 
   const handleRemove = () => {
-    removeContent(item.id);
+    removeContent(i);
   }
 
   return (
@@ -40,17 +41,17 @@ const ContentItem = React.memo(({ item, updateContent, removeContent }) => {
 
 const Update = () => {
   const router = useRouter()
-  const user = useSelector(state =>  state.user)
+  const user = useSelector(state => state.user)
 
   const [namePost, setNamePost] = useState("");
   const [content, setContent] = useState([{ p: "", image: "", id: 1 }]);
   const [tag, setTag] = useState("");
 
-  const getData = async() => {
+  const getData = async () => {
     try {
-      const res =await axios.get(`post/${router.query.update}`,{
-        headers : {
-          isadmin : true
+      const res = await axios.get(`post/${router.query.update}`, {
+        headers: {
+          isadmin: true
         }
       })
 
@@ -64,55 +65,71 @@ const Update = () => {
   }
 
   useEffect(() => {
-    getData()
-  },[])
+    if (router.query.update) getData()
+  }, [router.query.update])
 
 
-  const updateContent = useCallback((id, updatedItem) => {
-    setContent(prevContent => prevContent.map(element => element.id === id ? updatedItem : element));
+  const updateContent = useCallback((i, updatedItem) => {
+    setContent(prevContent => prevContent.map((element,index) => index === i ? updatedItem : element));
   }, []);
 
   const addContent = useCallback(() => {
-    setContent(prevContent => [...prevContent, { p: "", image: "", id: prevContent.length + 1 }]);
+    setContent(prevContent => [...prevContent, { p: "", image: "" }]);
   }, []);
 
-  const removeContent = (id) => {
-    setContent(prevContent => prevContent.filter(element => element.id !== id));
+  const removeContent = (i) => {
+    setContent(prevContent => prevContent.filter((element,index) => index !== i));
   }
 
   const handleSubmit = useCallback(async () => {
     try {
-      const res = await axios.post("post/create", { namePost, content, athor : user.name, tag: tag.split(" ") }, {
+      await axios.put(`post/update/${router.query.update}`, { namePost, content, athor: user.name, tag: tag.split(" ") }, {
         headers: {
           isadmin: true
         }
       });
-      const data = await res.data;
-      if (data.complete){
-        toast.success("create done!")
-        router.push("/admin");
-      }else{
-        throw new Error(data.message)
-      }
+
+      toast.success("update done!")
+      router.push("/admin");
     } catch (error) {
-      console.log(error);
-      
       toast.error(error.message)
     }
   }, [namePost, content, tag]);
+
+  const handleRemovePost = async () => {
+    try {
+      const res = await axios.delete(`post/remove/${router.query.update}`,{
+        headers : {
+          isadmin : user.admin
+        }
+      })
+      const data = res.data
+
+      if(data.complete){
+        router.push("/admin")
+        toast.success("remove done!")
+      }else{
+        throw new Error("")
+      }
+    } catch (error : any) {
+      toast.error(error.message)
+    }
+  }
+
 
   return (
     <div className={style.create}>
       <label className={style.label}>Name new Post : </label>
       <input className={style.input} onChange={(e) => setNamePost(e.target.value)} type="text" value={namePost} />
-      {content.map((item) => (
-        <ContentItem removeContent={removeContent} key={item.id} item={item} updateContent={updateContent} />
+      {content.map((item, index) => (
+        <ContentItem removeContent={removeContent} key={index} i={index} item={item} updateContent={updateContent} />
       ))}
       <button className={style.button} onClick={addContent}>Add Content</button>
-      <br/>
+      <br />
       <label className={style.label}>Tag : </label>
       <input className={style.input} onChange={(e) => setTag(e.target.value)} name="tag" value={tag} type="text" />
       <button className={style.button} onClick={handleSubmit}>Submit</button>
+      <button className={style.button} style={{background : "red"}} onClick={handleRemovePost}>Remove</button>
     </div>
   );
 };

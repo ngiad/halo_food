@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import Container from "../src/Container";
-import _debounce from 'lodash/debounce';
 import useFetch from "../src/useFetch";
 
 const Hot = () => {
@@ -11,8 +10,6 @@ const Hot = () => {
     let hrel = `post?page=${total}&status=hot`
     handleGetDate(hrel)
   }, [total])
-
-
 
   return (
     <div>

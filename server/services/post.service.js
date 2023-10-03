@@ -1,8 +1,21 @@
-import postModel from "../models/post.model.js";
+import Postfood from "../models/post.model.js";
+import saveModel from "../models/save.model.js"
 
 export default class PostService {
   constructor() {
-    this.model = postModel;
+    this.model = Postfood;
+    this.saveModel = saveModel;
+  }
+
+  tag = () => {
+    return new Promise(async(resolve,reject) => {
+      try {
+        const uniqueTags = await this.model.distinct('tag');
+        resolve(uniqueTags);
+      } catch (error) {
+        reject(error);
+      } 
+    })
   }
 
   CreateQuery = (query) => {
@@ -33,7 +46,7 @@ export default class PostService {
   updateStutusPost = async(post) => {
     let isNew = true
     let isHot = false
-    if((new Date().getTime() - new Date().getTime(post.createdAt)/ 24) > 3){
+    if(((new Date() - new Date(post.createdAt)) / (1000 * 60 * 60)) > 168){
       isNew = false
     }
 
@@ -72,6 +85,7 @@ export default class PostService {
     try {
       if (!id) throw new Error("id is null!");
       await this.model.findOneAndRemove({ _id: id });
+      await this.saveModel.deleteMany({idPost : id})
       return { complete: true };
     } catch (error) {
       throw error;
@@ -108,6 +122,7 @@ export default class PostService {
         );
         resolve(PostNewUpdate);
       } catch (error) {
+        console.log(error);
         reject(error);
       }
     });

@@ -5,53 +5,70 @@ import axios from '../utils/axios'
 import { useDispatch } from 'react-redux'
 import { update } from '../redux/state'
 import { useRouter } from 'next/router'
+import { toast } from 'react-toastify'
+import LoginCheck from '../src/LoginCheck'
+import _debounce from 'lodash/debounce';
 
 
 const Login = () => {
   const router = useRouter()
   const dispatch = useDispatch()
-  const [form,setForm] = useState({
-    email : "",
-    password : ""
+  const [form, setForm] = useState({ 
+    email: "",
+    password: ""
   })
 
-  const handChange =(e : any) => {
-    setForm({...form,[e.target.id] : e.target.value})
+  const handChange = (e: any) => {
+    setForm({ ...form, [e.target.id]: e.target.value })
   }
 
 
-  const handSubmit = async(e : any) =>{
-    e.preventDefault()
+  const handSubmit = async () => {
     try {
-      const res = await axios.post("auth/login",{
-          ...form
+      const { email , password } = form
+
+      if(!email || !password) throw new Error("them du thong tin")
+      const res = await axios.post("auth/login", {
+        ...form
       })
 
-      if(res.data){        
+      if (res.data) {
+        toast.success("login success!")
         dispatch(update(res.data))
-        localStorage.setItem("user",JSON.stringify(res.data))
         router.push("/profile")
+      }else{
+        throw new Error("some think error!")
       }
-
-      
-    } catch (error) {
-      console.log(error);
-      
+    } catch (error : any) {
+      toast.error(error.message);
     }
   }
-  return <div className={style.login}> 
-      <h1>Đăng nhập</h1>
-      <form onSubmit={handSubmit}>
-        <label htmlFor="email">Email</label>
-        <input onChange={handChange} value={form.email} type="text" id='email' />
-        <label htmlFor="password">Mật khẩu</label>
-        <input onChange={handChange} value={form.password} type="password" id='password' />
-        <button>Đăng nhập</button>
-      </form>
+
+
+  const _handleSubmit = (e :  any) =>{
+    e.preventDefault()
+    _debounce(handSubmit,300)()
+  } 
+  return <div className={style.login}>
+    <h1>Đăng nhập</h1>
+    <form onSubmit={_handleSubmit}>
+      <label htmlFor="email">Email</label>
+      <input onChange={handChange} value={form.email} type="text" id='email' />
+      <label htmlFor="password">Mật khẩu</label>
+      <input onChange={handChange} value={form.password} type="password" id='password' />
+      <button>Đăng nhập</button>
+    </form>
   </div>
 }
 
 
-Login.layout = PostLayout
+ 
 
-export default Login
+const Usage = (props : any) => {
+  const Wap = LoginCheck(Login,{...props},"/profile")
+  return  <Wap />
+}
+
+Usage.layout = PostLayout
+
+export default Usage

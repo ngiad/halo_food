@@ -16,7 +16,6 @@ export default class AuthController {
 
   login = async (req, res, next) => {
     try {
-      console.log(req.headers.isadmin);
       res.status(200).json(await this.service.login(req.body));
     } catch (error) {
       res.status(400);

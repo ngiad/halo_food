@@ -8,14 +8,20 @@ import { useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import Container from '../../src/Container';
 import { toast } from 'react-toastify';
+import { userTP } from '../../redux/store';
 
 const Admin = () => {
   const router = useRouter()
-  const user = useSelector((state) => state.user)
+  const user = useSelector((state : userTP) => state.user)
 
-  const totalPage = useRef<Number>(0)
-  const [total, setTotal] = useState(0)
-  const [fetch, setFetch] = useState({
+  const totalPage = useRef<number>(0)
+  const [total, setTotal] = useState<number>(0)
+  const [fetch, setFetch] = useState<{
+    error: any,
+    data: Array<any>,
+    isLoading: boolean,
+    lengthPage: number
+  }>({
     error: null,
     data: [],
     isLoading: false,
@@ -27,11 +33,11 @@ const Admin = () => {
       const res = await axios.get(hrel)
       const data = await res.data
 
-      setFetch(prev => {
+      setFetch((prev : any) => {
         let newState = { ...prev, data: [...prev.data, ...data[0]], lengthPage: data[1], isLoading: false }
         return newState
       })
-    } catch (error) {
+    } catch (error : any) {
       setFetch({ ...fetch, error })
     }
   }
@@ -39,10 +45,7 @@ const Admin = () => {
 
   const handleGetDate = _debounce(getData, 300)
   useEffect(() => {
-    // if(!user.admin){
-    //   router.push("/")
-    // }
-
+    if(!user.admin) router.push("/")
     let hrel = `post?page=${total}`
     handleGetDate(hrel)
   }, [total])
@@ -80,7 +83,7 @@ const Admin = () => {
         })
         toast.success("remove done!")
       }
-    } catch (error) {
+    } catch (error : any) {
       toast.error(error.message)
     }
   }

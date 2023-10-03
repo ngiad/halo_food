@@ -1,5 +1,6 @@
 import connentDB from "./utils/init.mongodb.js";
 import userModel from "./models/user.model.js";
+import Postfood from "./models/post.model.js";
 import mongoose from "mongoose";
 
 // async function test(){
@@ -18,7 +19,7 @@ import mongoose from "mongoose";
 //     console.log(user)
   
 // }
-mongoose.connect("mongodb+srv://Ngiad:Ngiad001@cluster0.2ts8aja.mongodb.net/").then(() => name())
+mongoose.connect("mongodb+srv://Ngiad:Ngiad001@cluster0.2ts8aja.mongodb.net/").then(() => console.log("ok"))
 
 
 const test = async() => {
@@ -27,11 +28,22 @@ const test = async() => {
   }) 
 }
 
-async function name() {
+export default async function getUniqueTags() {
   try {
-    const res = await test()
-    console.log("ok :: ",res);
+    const uniqueTags = await Postfood.distinct('tag');
+    console.log(uniqueTags);
+    return uniqueTags
   } catch (error) {
-    console.log("err :: ",err);
-  }
+    console.error(error);
+  } 
 }
+
+getUniqueTags();
+// async function name() {
+//   try {
+//     const res = await test()
+//     console.log("ok :: ",res);
+//   } catch (error) {
+//     console.log("err :: ",error);
+//   }
+// }

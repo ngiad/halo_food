@@ -5,7 +5,6 @@ import userModel from "../models/user.model.js"
 export const protect = async (req,res,next) =>{
     try {
         const token = req.headers.token
-
         if(!token) {
             res.status(400)
             throw new Error("Not authorized, please login")
@@ -19,7 +18,7 @@ export const protect = async (req,res,next) =>{
             res.status(400)
             throw new Error("User not found")
         }
-        
+
         req.user = user
         req.token = token
         next()

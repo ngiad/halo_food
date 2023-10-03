@@ -1,20 +1,18 @@
-import {  useEffect } from "react";
+import { useEffect } from "react";
 import Container from "../src/Container";
-import _debounce from 'lodash/debounce';
 import useFetch from "../src/useFetch";
 
 const New = () => {
-  const  {handleScroll,render,handleGetDate,total,fetch} = useFetch()
+  const { handleScroll, render, handleGetDate, total, fetch } = useFetch()
 
   useEffect(() => {
     let hrel = `post?page=${total}&status=new`
     handleGetDate(hrel)
   }, [total])
 
-  
   return (
     <div>
-       <Container data={render} handleScroll={handleScroll} isLoading={fetch.isLoading} />
+      <Container data={render} handleScroll={handleScroll} isLoading={fetch.isLoading} />
     </div>
   )
 }
