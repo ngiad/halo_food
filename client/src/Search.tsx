@@ -12,18 +12,18 @@ const Search = () => {
   const [positionmouse, setPositionMouse] = useState<Number>(0);
   const [search, setSearch] = useState<String>("");
   const [listTag, setListTag] = useState<Array<any>>([]);
-  const { setCountsearch } = useContext(SearchContext)
+  const { setCountsearch } = useContext(SearchContext);
 
-  let [listTap,setListTap] = useState([])
+  let [listTap, setListTap] = useState([]);
 
-  const getTag  = async(): Promise<void> => {
+  const getTag = async (): Promise<void> => {
     try {
-      const res = await axios.get("post/tag")
-      setListTap(res.data)
+      const res = await axios.get("post/tag");
+      setListTap(res.data);
     } catch (error) {
-      toast.warning("disconnent tag!")
+      toast.warning("disconnent tag!");
     }
-  }
+  };
 
   const handlEmousedown = (event: Event): void => {
     event.stopPropagation();
@@ -40,10 +40,10 @@ const Search = () => {
   const routerQuery = (query: { search?: String; tag?: any[] }) => {
     if (!query.search) delete query.search;
     if (!query.tag?.length) delete query.tag;
-    router.push({ pathname: "/search", query })
-    setCountsearch(prev =>{
-      return prev+=1
-    })
+    router.push({ pathname: "/search", query });
+    setCountsearch((prev) => {
+      return (prev += 1);
+    });
   };
 
   const handleSubmit = (e: Event): void => {
@@ -57,28 +57,27 @@ const Search = () => {
 
   const handleClicktag = (item: String) => {
     if (listTag?.find((tag: any) => tag === item)) {
-      let newState = listTag.filter((tag) => tag !== item)
-      setListTag(newState)
+      let newState = listTag.filter((tag) => tag !== item);
+      setListTag(newState);
       routerQuery({
         search: search,
-        tag: newState
-      })
-    }
-    else {
-      let newState = [...listTag, item]
-      setListTag(newState)
+        tag: newState,
+      });
+    } else {
+      let newState = [...listTag, item];
+      setListTag(newState);
       routerQuery({ search: search, tag: newState });
     }
   };
 
   useEffect(() => {
-    setListTag([])
-    setSearch("")
-  }, [router.pathname])
+    if (router.query.length) setListTag(router.query);
+    setSearch("");
+  }, [router]);
 
-  useEffect(() =>{
-    getTag()
-  },[])
+  useEffect(() => {
+    getTag();
+  }, []);
   return (
     <div className={style.search}>
       <form onSubmit={handleSubmit}>

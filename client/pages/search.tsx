@@ -44,17 +44,17 @@ const search = () => {
     return { ...item, updatedAt: new Date(item.updatedAt).toLocaleString() }
   }))()
 
-  const getDataIsMouse = async (hrel) => {
+  const getDataIsMouse = async (hrel : any) => {
     setFetch(prev => prev = { ...prev, isLoading: true })
     try {
       const res = await axios.get(hrel)
       const data = await res.data
 
-      setFetch(prev => {
+      setFetch((prev : any) => {
         let newState = { ...prev, data: [...prev.data, ...data[0]], lengthPage: data[1], isLoading: false }
         return newState
       })
-    } catch (error) {
+    } catch (error : any) {
       setFetch({ ...fetch, error })
     }
   }
